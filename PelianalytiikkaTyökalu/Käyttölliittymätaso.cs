@@ -15,6 +15,8 @@ namespace PelianalytiikkaTyökalu
             string pwd;
             bool connectionStatus;
 
+
+            //Kerätään käyttäjältä tarvittavat tiedot tietokantaan yhdistämistä varten
             Console.WriteLine("Address of the database: ");
             server = Console.ReadLine();
             Console.WriteLine("Name of the database: ");
@@ -24,7 +26,7 @@ namespace PelianalytiikkaTyökalu
             Console.WriteLine("Password: ");
             pwd = Console.ReadLine();
 
-
+            //tehdään tietokanta-olio ja yhdistetään siihen
             Tietokantataso database= new Tietokantataso(server, databaseName, uid, pwd);
             connectionStatus = database.OpenConnection();
 

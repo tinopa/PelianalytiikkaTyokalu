@@ -31,6 +31,7 @@ namespace PelianalytiikkaTyökalu
 
         public Tietokantataso(string server, string database, string uid, string pwd)
         {
+            //tietokantaan yhdistämiseen tarvittavat tiedot
             connetionString = "server=" + server + ";database="+ database + ";uid=" + uid + ";pwd=" + pwd + ";";
             cnn = new MySqlConnection(connetionString);
         }
