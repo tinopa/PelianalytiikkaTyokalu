@@ -38,21 +38,21 @@ namespace PelianalytiikkaTyökalu
                     "2. \n"); 
                 //ja jatkuu niin paljon kun halutaan eri kyselyitä
 
-                int valinta = Convert.ToInt32(Console.ReadLine());
+                int selection = Convert.ToInt32(Console.ReadLine());
 
-                switch (valinta)
+                switch (selection)
                 {
                     default:
                         Console.WriteLine("error");
                         break;
                     case 1:
                         Console.WriteLine("Give the name of the developer: ");
-                        string nimi = Console.ReadLine();
-                        database.ShowAllGamesByDeveloper(nimi);
+                        string developerName = Console.ReadLine();
+                        database.ShowAllGamesByDeveloper(developerName);
                         break;
                 }
             }
-
+            database.CloseConnection();
         }
     }
 }

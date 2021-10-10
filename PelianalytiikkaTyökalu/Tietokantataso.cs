@@ -53,6 +53,12 @@ namespace PelianalytiikkaTyökalu
         }
 
 
+        public void CloseConnection()
+        {
+            cnn.Close();
+        }
+
+
         public MySqlDataReader DatabaseQuery(string query)
         {
             MySqlCommand cmd = new MySqlCommand(query, cnn);
