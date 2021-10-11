@@ -62,7 +62,7 @@ namespace PelianalytiikkaTyökalu
         public MySqlDataReader DatabaseQuery(string query)
         {
             MySqlCommand cmd = new MySqlCommand(query, cnn);
-            /*try
+            try
             {
                 MySqlDataReader reader = cmd.ExecuteReader();
                 return reader;
@@ -71,13 +71,8 @@ namespace PelianalytiikkaTyökalu
             {
                 Console.WriteLine("error");
                 return null;
-            }*/
-
-            MySqlDataReader reader = cmd.ExecuteReader();
-            return reader;
-
+            }
         }
-
 
         public void ShowAllGamesByDeveloper(string gameName)
         {
