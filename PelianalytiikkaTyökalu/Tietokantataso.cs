@@ -68,12 +68,13 @@ namespace PelianalytiikkaTyökalu
         }
 
 
-        public void ShowAllGamesByDeveloper(string nimi)
+        public void ShowAllGamesByDeveloper(string name)
         {
-            MySqlDataReader reader = DatabaseQuery("SELECT Peli.Nimi FROM  Peli, Pelistudio WHERE  Peli.Studio_ID = Pelistudio.Studio_ID AND pelistudio.Nimi = " + nimi + ";");
+            MySqlDataReader reader = DatabaseQuery("SELECT Peli.Nimi FROM  Peli, Pelistudio WHERE  Peli.Studio_ID = Pelistudio.Studio_ID AND pelistudio.Nimi = \"" + name + "\";");
 
             if (reader.HasRows)
             {
+                Console.WriteLine("Games by " + name + ":");
                 while (reader.Read())
                 {
                     string gameName = reader.GetString(reader.GetOrdinal("Nimi"));

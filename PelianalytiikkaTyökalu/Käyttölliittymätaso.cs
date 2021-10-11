@@ -17,14 +17,15 @@ namespace PelianalytiikkaTyökalu
 
 
             //Kerätään käyttäjältä tarvittavat tiedot tietokantaan yhdistämistä varten
-            Console.WriteLine("Address of the database: ");
+            Console.Write("Address of the database: ");
             server = Console.ReadLine();
-            Console.WriteLine("Name of the database: ");
+            Console.Write("Name of the database: ");
             databaseName = Console.ReadLine();
-            Console.WriteLine("Username: ");
+            Console.Write("Username: ");
             uid = Console.ReadLine();
-            Console.WriteLine("Password: ");
+            Console.Write("Password: ");
             pwd = Console.ReadLine();
+            Console.WriteLine();
 
             //tehdään tietokanta-olio ja yhdistetään siihen
             Tietokantataso database= new Tietokantataso(server, databaseName, uid, pwd);
@@ -33,9 +34,9 @@ namespace PelianalytiikkaTyökalu
 
             while (connectionStatus)
             {
-                Console.WriteLine("What are we going to do?\n" +
-                    "1.  Show all games by a developer\n" +
-                    "2. \n"); 
+                Console.WriteLine("\nWhat are we going to do?\n" +
+                    "1. Close program\n" +
+                    "2. Show all games by a developer");
                 //ja jatkuu niin paljon kun halutaan eri kyselyitä
 
                 int selection = Convert.ToInt32(Console.ReadLine());
@@ -43,14 +44,19 @@ namespace PelianalytiikkaTyökalu
                 switch (selection)
                 {
                     default:
-                        Console.WriteLine("error");
+                        Console.WriteLine("\nerror");
                         break;
                     case 1:
-                        Console.WriteLine("Give the name of the developer: ");
+                        return;
+                    case 2:
+                        Console.Write("\nGive the name of the developer: ");
                         string developerName = Console.ReadLine();
                         database.ShowAllGamesByDeveloper(developerName);
+                        Console.WriteLine();
                         break;
                 }
+                Console.WriteLine("\nPress any key to continue");
+                Console.ReadKey();
             }
             database.CloseConnection();
         }
