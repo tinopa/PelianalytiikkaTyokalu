@@ -15,6 +15,9 @@ namespace PelianalytiikkaTyökalu
             string pwd;
             bool connectionStatus;
 
+            string gameName;
+            string developerName;
+
 
             //Kerätään käyttäjältä tarvittavat tiedot tietokantaan yhdistämistä varten
             Console.Write("Address of the database: ");
@@ -52,12 +55,12 @@ namespace PelianalytiikkaTyökalu
                         return;
                     case 2:
                         Console.Write("\nGive the name of the developer: ");
-                        string developerName = Console.ReadLine();
+                        developerName = Console.ReadLine();
                         database.ShowAllGamesByDeveloper(developerName);
                         break;
                     case 3:
                         Console.Write("\nGive the name of the game: ");
-                        string gameName = Console.ReadLine();
+                        gameName = Console.ReadLine();
                         database.PlayerCount(gameName);
                         break;
                     case 4:

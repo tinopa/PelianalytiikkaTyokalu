@@ -10,11 +10,9 @@ namespace PelianalytiikkaTyökalu
     class Tietokantataso
     {
         /*
-         * showGames(string developer)
-         * playTimeTotal(string game)
+
          * playTimeAverage(string game)
          * sessionAverageTime(string game)
-         * playerCount(string Game)
          * showGameSessions(string player, string game)
          * showGameEvents(int gameSessionID)
          * highestSpendingPlayer(string game)
@@ -69,7 +67,7 @@ namespace PelianalytiikkaTyökalu
             }
             catch(Exception ex)
             {
-                Console.WriteLine("error");
+                Console.WriteLine(ex.Message);
                 return null;
             }
         }
@@ -88,6 +86,7 @@ namespace PelianalytiikkaTyökalu
                     string result = reader.GetString(reader.GetOrdinal("Nimi"));
                     Console.WriteLine(result);
                 }
+                reader.Close();
             }
         }
 
@@ -106,6 +105,25 @@ namespace PelianalytiikkaTyökalu
                     int result = reader.GetInt32(reader.GetOrdinal("SUM(Pelaaja_ID)"));
                     Console.WriteLine(result);
                 }
+                reader.Close();
+            }
+        }
+
+        public void PlayTimeTotal(string gameName)
+        {
+            MySqlDataReader reader = DatabaseQuery("SELECT SUM(TIMESTAMPDIFF(HOUR, Aloitusaika, Loppuaika)) " +
+                "AS Peliaika FROM Pelisessio, Peli " +
+                "WHERE Pelisessio.Peli_ID = Peli.Peli_ID AND Peli.Nimi = \"" + gameName + "\";");
+
+            if (reader != null && reader.HasRows)
+            {
+                Console.WriteLine("Total played hours for " + gameName + ":");
+                while (reader.Read())
+                {
+                    int result = reader.GetInt32(reader.GetOrdinal("Peliaika"));
+                    Console.WriteLine(result);
+                }
+                reader.Close();
             }
         }
 
