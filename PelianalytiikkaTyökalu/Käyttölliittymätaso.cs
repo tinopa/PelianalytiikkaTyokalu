@@ -17,6 +17,7 @@ namespace PelianalytiikkaTyökalu
 
             string gameName;
             string developerName;
+            string nickName;
 
 
             //Kerätään käyttäjältä tarvittavat tiedot tietokantaan yhdistämistä varten
@@ -43,7 +44,9 @@ namespace PelianalytiikkaTyökalu
                     "3. Playercount for a game\n" +
                     "4. Show latest game sessions\n" +
                     "5. Show total playtime hours for a game\n" +
-                    "6. Show average playtime hours for a game");
+                    "6. Show average playtime hours for a game\n" +
+                    "7. Show gamesession by player and game\n" +
+                    "8. Show game events by session ID");
                 //ja jatkuu niin paljon kun halutaan eri kyselyitä
 
                 int selection = Convert.ToInt32(Console.ReadLine());
@@ -72,14 +75,26 @@ namespace PelianalytiikkaTyökalu
                         break;
 
                     case 5:
-                        Console.WriteLine("\nGive the name of the game : ");
+                        Console.WriteLine("\nGive the name of the game: ");
                         gameName = Console.ReadLine();
                         database.PlayTimeTotal(gameName);
                         break;
                     case 6:
-                        Console.WriteLine("\nGive the name of the game : ");
+                        Console.WriteLine("\nGive the name of the game: ");
                         gameName = Console.ReadLine();
                         database.PlayTimeAverage(gameName);
+                        break;
+                    case 7:
+                        Console.WriteLine("\nGive the name of the game: ");
+                        gameName = Console.ReadLine();
+                        Console.WriteLine("\nGive the nickname of the player: ");
+                        nickName = Console.ReadLine();
+                        database.ShowGameSessions(nickName, gameName);
+                        break;
+                    case 8:
+                        Console.WriteLine("\nGive the ID of the game session");
+                        int sessionID = Convert.ToInt32(Console.ReadLine());
+                        database.ShowGameEvents(sessionID);
                         break;
                 }
                 Console.WriteLine("\nPress any key to continue");

@@ -145,6 +145,49 @@ namespace PelianalytiikkaTyökalu
             }
         }
 
+        public void ShowGameSessions(string playerNick, string gameName)
+        {
+            MySqlDataReader reader = DatabaseQuery("SELECT DATE(Aloitusaika) AS paivamaara, TIMESTAMPDIFF(HOUR, Aloitusaika, Loppuaika) as Peliaika, Sessio_ID " +
+                "FROM Pelisessio, Pelaaja, Peli, Pelaa " +
+                "WHERE Pelisessio.Peli_ID = Peli.Peli_ID " + 
+                "AND Peli.Nimi = \"" + gameName + "\" " +
+                "AND Pelisessio.Pelaaja_ID = Pelaaja.Pelaaja_ID " +
+                "AND Pelaaja.Pelaaja_ID = Pelaa.Pelaaja_ID " +
+                "AND Pelaa.Nimimerkki = \"" + playerNick + "\"; ");
+
+            if (reader != null && reader.HasRows)
+            {
+                Console.WriteLine("Date, played hours and session ID's for " + playerNick + " in " + gameName + ":");
+                while (reader.Read())
+                {
+                    string date = reader.GetString(reader.GetOrdinal("paivamaara"));
+                    int gameTime = reader.GetInt32(reader.GetOrdinal("Peliaika"));
+                    int id = reader.GetInt32(reader.GetOrdinal("Sessio_ID"));
+                    Console.WriteLine(date + " " + gameTime + " " + id);
+                }
+                reader.Close();
+            }
+        }
+
+        public void ShowGameEvents(int sessionID)
+        {
+            MySqlDataReader reader = DatabaseQuery("SELECT Aikaleima, Tyyppi_Nimi FROM Pelitapahtuma, Pelitapahtuma_Tyyppi " +
+                "WHERE Pelitapahtuma.Tyyppi_ID = Pelitapahtuma_Tyyppi.Tyyppi_ID " +
+                "AND Sessio_ID =\"" + sessionID + "\" ;");
+
+            if (reader != null && reader.HasRows)
+            {
+                Console.WriteLine("Gameevents in session " + sessionID + ":");
+                while (reader.Read())
+                {
+                    string timestamp = reader.GetString(reader.GetOrdinal("Aikaleima"));
+                    string gameEvent = reader.GetString(reader.GetOrdinal("Tyyppi_Nimi"));
+                    Console.WriteLine(timestamp + " " + gameEvent);
+                }
+                reader.Close();
+            }
+        }
+
         public void GameSession(string gameSessions)
         {
             MySqlDataReader reader = DatabaseQuery("SELECT Aloitusaika, Loppuaika FROM pelisessio " +
