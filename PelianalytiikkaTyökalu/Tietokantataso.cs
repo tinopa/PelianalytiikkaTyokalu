@@ -62,23 +62,51 @@ namespace PelianalytiikkaTyökalu
         public MySqlDataReader DatabaseQuery(string query)
         {
             MySqlCommand cmd = new MySqlCommand(query, cnn);
-            MySqlDataReader reader = cmd.ExecuteReader();
+            try
+            {
+                MySqlDataReader reader = cmd.ExecuteReader();
+                return reader;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("error");
+                return null;
+            }
 
-            return reader;
         }
 
 
-        public void ShowAllGamesByDeveloper(string name)
+        public void ShowAllGamesByDeveloper(string gameName)
         {
-            MySqlDataReader reader = DatabaseQuery("SELECT Peli.Nimi FROM  Peli, Pelistudio WHERE  Peli.Studio_ID = Pelistudio.Studio_ID AND pelistudio.Nimi = \"" + name + "\";");
+            MySqlDataReader reader = DatabaseQuery("SELECT Peli.Nimi FROM  Peli, Pelistudio " +
+                "WHERE  Peli.Studio_ID = Pelistudio.Studio_ID " +
+                "AND pelistudio.Nimi = \"" + gameName + "\";");
 
-            if (reader.HasRows)
+            if (reader != null && reader.HasRows)
             {
-                Console.WriteLine("Games by " + name + ":");
+                Console.WriteLine("Games by " + gameName + ":");
                 while (reader.Read())
                 {
-                    string gameName = reader.GetString(reader.GetOrdinal("Nimi"));
-                    Console.WriteLine(gameName);
+                    string result = reader.GetString(reader.GetOrdinal("Nimi"));
+                    Console.WriteLine(result);
+                }
+            }
+        }
+
+        public void PlayerCount(string gameName)
+        {
+            MySqlDataReader reader = DatabaseQuery("SELECT SUM(Pelaaja_ID) FROM Pelaaja " +
+                "WHERE Pelaaja_ID IN(" +
+                "SELECT Pelaaja_ID FROM Pelaa, Peli " +
+                "WHERE Pelaa.Peli_ID = Peli.Peli_ID AND Peli.Nimi = \"" + gameName + "\";");
+
+            if (reader != null && reader.HasRows)
+            {
+                Console.WriteLine("Playercount for " + gameName + ":");
+                while (reader.Read())
+                {
+                    string result = reader.GetString(reader.GetOrdinal("SUM(Pelaaja_ID)"));
+                    Console.WriteLine(result);
                 }
             }
         }

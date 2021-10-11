@@ -36,7 +36,8 @@ namespace PelianalytiikkaTyökalu
             {
                 Console.WriteLine("\nWhat are we going to do?\n" +
                     "1. Close program\n" +
-                    "2. Show all games by a developer");
+                    "2. Show all games by a developer\n" +
+                    "3. Playercount for a game");
                 //ja jatkuu niin paljon kun halutaan eri kyselyitä
 
                 int selection = Convert.ToInt32(Console.ReadLine());
@@ -52,7 +53,11 @@ namespace PelianalytiikkaTyökalu
                         Console.Write("\nGive the name of the developer: ");
                         string developerName = Console.ReadLine();
                         database.ShowAllGamesByDeveloper(developerName);
-                        Console.WriteLine();
+                        break;
+                    case 3:
+                        Console.Write("\nGive the name of the game: ");
+                        string gameName = Console.ReadLine();
+                        database.PlayerCount(gameName);
                         break;
                 }
                 Console.WriteLine("\nPress any key to continue");
