@@ -32,7 +32,7 @@ namespace PelianalytiikkaTyökalu
         public Tietokantataso(string server, string database, string uid, string pwd)
         {
             //tietokantaan yhdistämiseen tarvittavat tiedot
-            connetionString = "server=" + server + ";database="+ database + ";uid=" + uid + ";pwd=" + pwd + ";";
+            connetionString = "server=" + server + ";database="+ database + ";uid=" + uid + ";pwd=" + pwd + ";SSL Mode=None";
             cnn = new MySqlConnection(connetionString);
         }
 
