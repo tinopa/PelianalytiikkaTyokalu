@@ -37,7 +37,8 @@ namespace PelianalytiikkaTyökalu
                 Console.WriteLine("\nWhat are we going to do?\n" +
                     "1. Close program\n" +
                     "2. Show all games by a developer\n" +
-                    "3. Playercount for a game");
+                    "3. Playercount for a game\n" +
+                    "4. Show latest game sessions");
                 //ja jatkuu niin paljon kun halutaan eri kyselyitä
 
                 int selection = Convert.ToInt32(Console.ReadLine());
@@ -59,6 +60,12 @@ namespace PelianalytiikkaTyökalu
                         string gameName = Console.ReadLine();
                         database.PlayerCount(gameName);
                         break;
+                    case 4:
+                        Console.Write("\nSee the latest game sessions by ID (1-5): ");
+                        string gameSessions = Console.ReadLine();
+                        database.PlayerCount(gameSessions);
+                        break;
+
                 }
                 Console.WriteLine("\nPress any key to continue");
                 Console.ReadKey();

@@ -108,5 +108,22 @@ namespace PelianalytiikkaTyökalu
                 }
             }
         }
+
+        public void GameSession(string gameSessions)
+        {
+            MySqlDataReader reader = DatabaseQuery("SELECT Aloitusaika, Loppuaika FROM pelisessio " +
+                "WHERE Peli_ID = ANY");
+
+            if (reader != null && reader.HasRows)
+            {
+                Console.WriteLine("Latest game sessions " + ":");
+                while (reader.Read())
+                {
+                    String results = reader.GetString(reader.GetOrdinal("Aloitusaika, Loppuaika"));
+                    Console.WriteLine(results);
+                }
+            }
+        }
+
     }
 }
