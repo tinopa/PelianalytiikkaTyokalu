@@ -41,7 +41,7 @@ namespace PelianalytiikkaTyökalu
                     "1. Close program\n" +
                     "2. Show all games by a developer\n" +
                     "3. Playercount for a game\n" +
-                    "4. Show latest game sessions");
+                    "4. Show latest game sessions\n" +
                     "5. Show total playtime hours for a game");
                 //ja jatkuu niin paljon kun halutaan eri kyselyitä
 
