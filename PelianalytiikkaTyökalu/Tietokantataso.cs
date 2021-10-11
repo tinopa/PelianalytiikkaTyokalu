@@ -127,6 +127,24 @@ namespace PelianalytiikkaTyökalu
             }
         }
 
+        public void PlayTimeAverage(string gameName)
+        {
+            MySqlDataReader reader = DatabaseQuery("SELECT AVG(TIMESTAMPDIFF(HOUR, Aloitusaika, Loppuaika)) " +
+                "AS Peliaika FROM Pelisessio, Peli " +
+                "WHERE Pelisessio.Peli_ID = Peli.Peli_ID AND Peli.Nimi = \"" + gameName + "\";");
+
+            if (reader != null && reader.HasRows)
+            {
+                Console.WriteLine("Average played hours for " + gameName + ":");
+                while (reader.Read())
+                {
+                    float result = reader.GetFloat(reader.GetOrdinal("Peliaika"));
+                    Console.WriteLine(result);
+                }
+                reader.Close();
+            }
+        }
+
         public void GameSession(string gameSessions)
         {
             MySqlDataReader reader = DatabaseQuery("SELECT Aloitusaika, Loppuaika FROM pelisessio " +
