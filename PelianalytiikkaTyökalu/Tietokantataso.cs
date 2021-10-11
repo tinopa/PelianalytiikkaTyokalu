@@ -62,7 +62,7 @@ namespace PelianalytiikkaTyökalu
         public MySqlDataReader DatabaseQuery(string query)
         {
             MySqlCommand cmd = new MySqlCommand(query, cnn);
-            try
+            /*try
             {
                 MySqlDataReader reader = cmd.ExecuteReader();
                 return reader;
@@ -71,7 +71,10 @@ namespace PelianalytiikkaTyökalu
             {
                 Console.WriteLine("error");
                 return null;
-            }
+            }*/
+
+            MySqlDataReader reader = cmd.ExecuteReader();
+            return reader;
 
         }
 
@@ -98,14 +101,14 @@ namespace PelianalytiikkaTyökalu
             MySqlDataReader reader = DatabaseQuery("SELECT SUM(Pelaaja_ID) FROM Pelaaja " +
                 "WHERE Pelaaja_ID IN(" +
                 "SELECT Pelaaja_ID FROM Pelaa, Peli " +
-                "WHERE Pelaa.Peli_ID = Peli.Peli_ID AND Peli.Nimi = \"" + gameName + "\";");
+                "WHERE Pelaa.Peli_ID = Peli.Peli_ID AND Peli.Nimi = \"" + gameName + "\");");
 
             if (reader != null && reader.HasRows)
             {
                 Console.WriteLine("Playercount for " + gameName + ":");
                 while (reader.Read())
                 {
-                    string result = reader.GetString(reader.GetOrdinal("SUM(Pelaaja_ID)"));
+                    int result = reader.GetInt32(reader.GetOrdinal("SUM(Pelaaja_ID)"));
                     Console.WriteLine(result);
                 }
             }
